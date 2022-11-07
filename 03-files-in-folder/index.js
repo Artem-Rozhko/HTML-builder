@@ -6,7 +6,7 @@ const { stdin, stdout } = process;
   const pathFolder = path.join(__dirname, 'secret-folder');
   try {
     const files = await fs.readdir(pathFolder, { withFileTypes: true });
-    for (const file of files)
+    for (const file of files) {
       if (file.isFile()) {
         const pathFile = path.join(pathFolder, file.name);
         const fileName = path.parse(pathFile).name;
@@ -14,6 +14,7 @@ const { stdin, stdout } = process;
         const fileSize = (await fs.stat(pathFile)).size;
         stdout.write(`${fileName} - ${fileExtension} - ${fileSize / 1024}kb\n`);
       }
+    }
   } catch (err) {
     stdout.write(err);
   }
