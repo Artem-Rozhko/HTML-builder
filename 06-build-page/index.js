@@ -23,9 +23,10 @@ async function creatStyle() {
       }
     }
   } catch (err) {
-    stdout.write(err);
+    console.log('Error:', err.message);
   }
 };
+creatStyle()
 
 async function copyAssets(originFolder, copyFolder) {
   try {
@@ -42,10 +43,11 @@ async function copyAssets(originFolder, copyFolder) {
       }
     }
   } catch (err) {
-    stdout.write(err);
+    console.log('Error:', err.message);
   }
 };
 
+copyAssets(pathFolder, pathCopyFolder);
 
 const pathOriginHtml = path.join(__dirname, 'template.html');
 const pathCopyHtml = path.join(__dirname, 'project-dist', 'index.html')
@@ -65,15 +67,4 @@ async function createHtml() {
   }
   writeStream.write(contentHtml);
 }
-
-(async () => {
-  try {
-    await fsProm.rm(pathProjectFolder, { recursive: true, force: true });
-    await fsProm.mkdir(pathProjectFolder, { recursive: true });
-    await creatStyle();
-    await copyAssets(pathFolder, pathCopyFolder);
-    await createHtml();
-  } catch (err) {
-    stdout.write(err);
-  }
-})();
+createHtml()
